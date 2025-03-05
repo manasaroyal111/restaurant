@@ -11,11 +11,12 @@ class CategorySerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['name', 'price', 'category']
+        fields = '__all__'
 
 
 class CartSerializer(serializers.ModelSerializer):
-    item = ItemSerializer()
+    item = ItemSerializer(read_only=True)
+
     class Meta:
         model = Cart
-        fields = ['item', 'quantity']
+        fields = ['id', 'item', 'quantity']

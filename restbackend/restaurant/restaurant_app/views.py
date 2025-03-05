@@ -30,3 +30,17 @@ class ItemsByCategoryAPIView(APIView):
 class CartViewSet(ModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+   # When an item is already in the cart incraese its quantity otherwise add to cart
+    def create(self, request):
+        item_id = request.data.get('item')
+        quantity = int(request.data.get('quantity', 1))
+
+        cart_item, created = Cart.objects.get_or_create(item_id=item_id)
+        
+        if not created:
+            cart_item.quantity += quantity  
+            cart_item.save()
+
+        serializer = CartSerializer(cart_item)
+        return Response(serializer.data, status=201)

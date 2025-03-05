@@ -21,15 +21,33 @@ export default function Category() {
         fetchdata()
       }, []);
 
+  const handleCart = async(item)=>{
+       
+    try{
+      const payload = {item: item.id, quantity: 1}
+      await axios.post('http://127.0.0.1:8000/cart/', payload)
+      alert('item added')
+
+    }
+    catch(error){
+      console.log(error)
+      alert('Couldnt add')
+    }
+  }
+
 
   return (
     <div>
+      <h1>{categoryName}</h1>
         {
-     <ul>
+     <div>
       {items.map((item)=>(
-        <li>{item.name} - {item.price}</li>
+        <div>
+                  <a>{item.name} - {item.price}</a>
+                  <button onClick={()=> handleCart(item)}>Add to Cart</button>
+        </div>
       ))}
-     </ul> }
+     </div> }
     </div>
   )
 }
