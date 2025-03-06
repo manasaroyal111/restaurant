@@ -1,7 +1,9 @@
 import React from 'react'
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect, useContext } from 'react'; 
 import axios from 'axios'
+import { CartContext } from './CartContext';
 import { useParams } from "react-router-dom";
+
 
 
 
@@ -9,6 +11,8 @@ import { useParams } from "react-router-dom";
 export default function Category() {
     const [items, setItems] = useState([])
     const {categoryName} = useParams()
+    const { cart,setCart, incQuant, decQuant } = useContext(CartContext);
+
     useEffect(()=>{
         const fetchdata = async ()=>{
           try{
@@ -19,13 +23,14 @@ export default function Category() {
           }
         }
         fetchdata()
-      }, []);
+      }, [categoryName]);
 
   const handleCart = async(item)=>{
        
     try{
       const payload = {item: item.id, quantity: 1}
-      await axios.post('http://127.0.0.1:8000/cart/', payload)
+      const res = await axios.post('http://127.0.0.1:8000/cart/', payload)
+      setCart([...cart, res.data]);
       alert('item added')
 
     }
@@ -41,12 +46,22 @@ export default function Category() {
       <h1>{categoryName}</h1>
         {
      <div>
-      {items.map((item)=>(
-        <div>
-                  <a>{item.name} - {item.price}</a>
-                  <button onClick={()=> handleCart(item)}>Add to Cart</button>
-        </div>
-      ))}
+      {items.map((item)=>{
+const cartItem = cart.find(cItem => cItem.item.id === item.id);
+return (
+    <div key={item.id}>
+        <p>{item.name} - ₹{item.price}</p>
+        {cartItem ? (
+            <>
+                <button onClick={()=>incQuant(cartItem)}>+</button>
+                {cartItem.quantity}
+                <button onClick={()=>decQuant(cartItem)}>-</button>
+            </>
+        ) : (
+            <button onClick={()=>handleCart(item)}>Add to Cart</button>
+        )}
+    </div>
+);      })}
      </div> }
     </div>
   )
