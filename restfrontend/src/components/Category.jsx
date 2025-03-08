@@ -50,6 +50,7 @@ export default function Category() {
 const cartItem = cart.find(cItem => cItem.item.id === item.id);
 return (
     <div key={item.id}>
+        <img  src={`http://127.0.0.1:8000${item.image}`}/>
         <p>{item.name} - ₹{item.price}</p>
         {cartItem ? (
             <>
