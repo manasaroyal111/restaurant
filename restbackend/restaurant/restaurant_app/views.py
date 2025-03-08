@@ -10,7 +10,9 @@ from rest_framework.views import APIView
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-
+    
+    def get_serializer_context(self):
+        return {"request": self.request} 
 
 class ItemViewSet(ModelViewSet):
     queryset = Item.objects.all()
