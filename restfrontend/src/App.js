@@ -1,28 +1,37 @@
 import './App.css';
 import Home from './components/Home';
-import { Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Category from './components/Category';
-import Cart from './components/Cart';
 import { CartProvider } from './components/CartContext';
 import Header from './components/Header';
-import Items from './components/Items'
+import Items from './components/Items';
+import Footer from './components/Footer';
+import CartPopup from './components/CartPopup';
+import { useState } from 'react';
+import Contact from './components/Contact';
 
 function App() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
 
   return (
     <CartProvider>
-    <div className="App">
-   <Header />
-<Routes>
-        <Route path='/' element={<Home />}></Route>
-        <Route path='/:categoryName' element={<Category />}></Route>
-        <Route path='/cart' element={<Cart />}></Route>
-        <Route path='/items' element={<Items />}></Route>
-       </Routes>
+      <div className="App">
+        <Header toggleCart={toggleCart} />
+        <CartPopup isOpen={isCartOpen} toggleCart={toggleCart} />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/:categoryName' element={<Category />} />
+          <Route path='/items' element={<Items />} />
+          <Route path='/contact' element={<Contact />} />
 
-     </div>
-     </CartProvider>
+        </Routes>
+        <Footer />
+      </div>
+    </CartProvider>
   );
 }
 

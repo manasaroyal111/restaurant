@@ -1,0 +1,312 @@
+  
+        .mid-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            width: 100%;
+          }
+          
+          .mid-title {
+            font-size: 2rem;
+            color: #333;
+          }
+          
+          .mid-description {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: auto;
+            line-height: 1.5;
+            margin-top: -2px;
+          }
+          
+          .collections-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            gap: 25px; 
+          }
+          
+          .collection-card {
+            position: relative;
+            width: 33.33%;
+            height: 500px;
+            overflow: hidden;
+          }
+          
+          .collection-card:hover {
+            transform: none; 
+          }
+          
+          .collection-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease-in-out;
+          }
+          
+          .collection-card:hover .collection-img {
+            transform: scale(1.1);
+          }
+          
+          .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding: 20px;
+            color: white;
+          }
+          
+          .overlay-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+          }
+          
+          .order-btn {
+            background: olive;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+          }
+          
+          .order-btn:hover {
+            background: darkolivegreen;
+          }
+
+.banner_up{
+    text-align: center;
+    margin-top: 60px;
+    color: rgb(34, 17, 0)
+    ;
+ }
+ .banner_up_1{
+   text-transform: uppercase;
+   font-size: 0.8rem;
+   margin-bottom: 4px;
+   letter-spacing: 1px;
+ }
+ .banner_up_2{
+   font-size: 1.4rem;
+ }
+ .banner_up_3{
+   font-size: 1rem;
+   margin-top: -10px;
+ }
+ .discount-banner {
+   position: relative;
+   width: 100%;
+   height: 360px;
+   overflow: hidden;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top:40px;
+ }
+ 
+ .discount-banner::before {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.3);
+   z-index: 1;
+ }
+ 
+ .banner-img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   display: block;
+ }
+ 
+ .banner-border {
+   position: absolute;
+   top: 20px;
+   left: 20px;
+   right: 20px;
+   bottom: 20px;
+   border: 1px solid white;
+   z-index: 2;
+ }
+ 
+ .banner-overlay {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 80%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 3;
+ }
+ 
+ .discount-content {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   text-align: center;
+   color: white;
+ }
+ 
+ .discount-left, .discount-right {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   
+ }
+ 
+ .discount-right {
+   align-items: flex-start;
+   justify-content: flex-start; 
+   text-align: left; }
+ 
+   .discount-left {
+     align-items: flex-end;
+     text-align: right; }
+ 
+ .extra-text {
+   font-size: 1.3rem;
+   letter-spacing: 1px;
+ }
+ 
+ .discount-big {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: -30px;
+ }
+ 
+ .discount-number {
+   font-size: 4rem;
+   font-weight: bold;
+ }
+ 
+ .discount-percentage {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+ 
+ .discount-percent {
+   font-size: 2rem;
+   font-weight: bold;
+ }
+ 
+ .discount-off {
+   font-size: 1.2rem;
+   font-weight: bold;
+ }
+ 
+ .discount-subtext {
+   font-size: 0.9rem;
+ }
+ 
+ .separator {
+   width: 1px;
+   height: 150px;
+   background: white;
+   margin:0 50px;
+ }
+ 
+ .discount-text {
+   font-size: 1rem;
+   display: flex;
+   align-items: flex-start;
+ }
+ 
+ .shop-btn {
+   background: transparent;
+   border: 1px solid white;
+   color: white;
+   padding: 8px 15px;
+   font-size: 0.7rem;
+   cursor: pointer;
+   letter-spacing: 2px;
+   margin-top: 10px;
+   text-transform: uppercase;
+   transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+ }
+ 
+ .shop-btn:hover {
+   background: white;
+   color: black;
+ }
+ 
+ @media (max-width: 768px) {
+   .discount-banner {
+     height: 40vh;
+   }
+ 
+   .banner-overlay {
+     width: 90%;
+   }
+ 
+   .discount-content {
+     flex-direction: column;
+     text-align: center;
+   }
+   .discount-right, .discount-left{
+     margin-top: 10px;
+     width: 60%;
+     align-items: center;
+     justify-content: center;
+   }
+   .discount-text{
+     text-align: center;
+   }
+ 
+   .separator {
+     width: 90px;
+     height: 2px;
+     margin: 10px auto;
+   }
+ 
+   .discount-number {
+     font-size: 3.5rem;
+   }
+ 
+   .discount-percent {
+     font-size: 2rem;
+   }
+ 
+   .discount-off {
+     font-size: 1.5rem;
+   }
+ 
+   .discount-text {
+     font-size: 0.9rem;
+   }
+ }
+ @media (max-width: 768px) {
+            .collections-container {
+              flex-direction: column;
+            }
+            .collection-card {
+              width: 100%;
+              height: 360px;
+            }
+            .mid-section{
+              padding: 10px;
+            }
+            .mid-title{
+              font-size: 1.5rem;
+            }
+          }
+  

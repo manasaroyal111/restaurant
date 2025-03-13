@@ -1,0 +1,63 @@
+.bestseller-card {
+    flex: 0 0 auto;
+    width: 220px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+    background: none;
+    border: 1px solid transparent;
+    box-shadow: none;
+    padding: 10px;
+    padding-bottom: 0px;
+  }
+  
+  .image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .bestseller-img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .bestseller-card:hover .bestseller-img {
+    transform: scale(1.1);
+  }
+  
+  .add-to-cart-btn {
+    position: absolute;
+    bottom: 7px;
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 90%; 
+    background: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 5px 0;
+    font-size: 0.86rem; 
+    text-transform: uppercase;
+    opacity: 0;
+    border: 1px solid black;
+    transition: opacity 0.3s ease-in-out;
+    font-weight: 500; 
+  }
+    .bestseller-card:hover .add-to-cart-btn {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .bestseller-card:hover {
+    border: 1px solid black;
+  }
+  
+  .bestseller-info {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0;
+    text-transform: capitalize;
+  }

@@ -1,0 +1,122 @@
+.bestseller-container {
+    padding: 20px;
+    overflow-x: auto;
+  }
+  
+  .bestseller-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    scrollbar-width: none;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+
+  }
+  
+  .bestseller-scroll::-webkit-scrollbar {
+    display: none;
+  }
+.view-all-text {
+    align-self: center;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #000;
+    margin-left: 10px;
+  }
+  .view-all-text:hover {
+    text-decoration: underline;
+  }
+  .tab-switcher {
+    display: flex;
+    justify-content: flex-start; 
+    gap: 20px;
+    padding-bottom: 5px;
+    position: relative;
+    margin-left: 10px;
+  }
+  
+  .tab-btn {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #555;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+    margin-bottom: 19px;
+  }
+  
+  .tab-btn:hover {
+    color: #222; 
+  }
+  
+  .tab-btn.active {
+    color: olive; 
+  }
+  
+  .tab-btn::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 0%;
+    height: 3px;
+    background-color: olive;
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+  }
+  
+  .tab-btn.active::after {
+    width: 100%;
+    left: 0;
+  }
+  .bestseller-scroll.hidden {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+  }
+
+  .scroll-arrows {
+    display: flex;
+    gap:30px;
+    margin-top: 20px;
+    margin-left: auto;
+position: absolute;
+right: 0;
+  }
+  
+  .arrow-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .arrow-btn:hover {
+    color: olive;
+  }
+  @media (max-width: 375px){
+    .tab-btn{
+        padding: 0;
+    }
+  }
+  @media(min-width:1579px){
+    .bestseller-container{
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+    }
+    .bestseller-scroll{
+        align-items: center;
+        justify-content: center;
+        margin: auto;   
+    }
+    .tab-switcher{
+        align-items: center;
+        justify-content: center;
+        margin: auto;   
+    }
+  }

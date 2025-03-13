@@ -1,0 +1,63 @@
+.logo-header{
+    font-family: "Ruthie", cursive;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #854c10;
+    text-shadow: 1px 1px 1px rgb(68, 48, 35)
+  
+  }
+  
+  .logo-mobile{
+    font-family: "Ruthie", cursive;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #854c10 !important;
+    text-shadow: 1px 1px 1px rgb(68, 48, 35)
+  }
+  .nav-link{
+   color: #7e4f34 !important;
+  }
+  .navbar-collapse{
+    margin-right: 15px;
+  }
+  .desktop, .mobile{
+    background-color: white;
+    border: none;
+  }
+  .desktop i, .nav-link i, .mobile i{
+    font-size: 24px;
+    color: #5a3825;
+  }
+  .desktop span, .mobile span{
+    background-color: #5a3825;
+    border-radius: 50%;
+  color: white;
+  padding: 2px 5px;
+  font-size: 0.6rem;
+  margin-right: -6px;
+  }
+  .mobile-links a{
+    color: #351c02;
+  }
+
+  
+.list-unstyled a{
+  color: #683d23;
+  font-size: 0.9rem;
+}
+
+.logo{
+  font-family: "Ruthie", cursive;
+  font-size: 2.9rem;
+  font-weight: 600;
+  color: #351c02;
+  text-shadow: 3px 3px 2px rgb(153, 91, 53);
+
+}
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  filter: invert(40%) sepia(57%) saturate(500%) hue-rotate(20deg); 
+}

@@ -1,80 +1,72 @@
-import React from 'react'
-import axios from 'axios'
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
-import top_img from '../assets/slider1.jpg'
-import AllItems from './Items'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import ProductSection from "./ProductSection";
+import Mid from "./Mid";
+import Bottom from "./Bottom";
 
-export default function () {
-    const [category, setCategory] = useState([])
-    const navigate = useNavigate()
+export default function Home() {
+  const [category, setCategory] = useState([]);
+  const [best, setBest] = useState([]);
+  const [kunafa, setKunafa] = useState([]);
+  const [activeTab, setActiveTab] = useState("bestsellers");
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const catres = await axios.get("http://localhost:8000/categories/");
+        const besres = await axios.get("http://localhost:8000/bestsellers/");
+        const kunres = await axios.get("http://localhost:8000/category/dubai kunafa chocolate/");
 
-    useEffect(()=>{
-      const fetchdata = async ()=>{
-        try{
-          const catres = await axios.get('http://localhost:8000/')
-          setCategory(catres.data)
-        }catch(error){
-           console.log(error)
-        }
+        setBest(besres.data);
+        setKunafa(kunres.data);
+        setCategory(catres.data);
+      } catch (error) {
+        console.log(error);
       }
-      fetchdata()
-    }, []);
-    
-     
-    const handleClick = (category_name)=>{
-     navigate(`${category_name}`)      
-    }
-    
-    
-    
-    
-      return (
-        <div className="App">
-        
+    };
+    fetchData();
+  }, []);
 
-          <div className='top_container'>
-      <img src={top_img}  className='top_img_lv'/>
-     <div className='top_overlay'>
-        <p className='overlay_h1'>Welcome Spring with Our Vibrant New Collection</p>
-        <p className='overlay_p'>Discover the latest trends, timeless classics, and unique pieces designed to 
-            make you stand out. From chic workwear to stunning evening wear, our collection
-             has something for every occasion.
-        </p>
-        <a className='overlay_btn btn'>Explore now</a>
-     </div>
-      </div>
-      <div>
+  const handleClick = (category_name) => {
+    navigate(`${category_name}`);
+  };
 
-      </div>
-
-
-
-
-     <h3 className='category_head'>Our Categories</h3>
-
-      <div className="category-container">
-                <div className="category-scroll">
-                    {category.map((cat) => (
-                        <div className="category-card" key={cat.id}>
-                            <img className="category-img" src={cat.image_url} alt={cat.name} />
-                            <p>
-                                <a onClick={() => handleClick(cat.name)} className="category-link">
-                                    {cat.name}
-                                </a>
-                            </p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-
-
-
-
-      
-      <AllItems />
+  return (
+    <div className="App">
+      <div className="position-relative text-center">
+        <img
+          src={`${process.env.PUBLIC_URL}/images/top_img_2.webp`}
+          alt="Banner"
+          className="img-fluid w-100"
+          style={{ height: "500px", objectFit: "cover" }}
+        />
+        <div
+          className="position-absolute top-0 w-100 h-100"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}
+        ></div>
+        <div className="position-absolute top-50 start-50 translate-middle text-white">
+          <p style={{ fontSize: "1.5rem" }}>Our Collection</p>
+          <Link
+            to="/items"
+            className="btn btn-outline-light mt-3 px-4 py-2"
+            style={{ textTransform: "uppercase", fontSize: "0.9rem" }}
+          >
+            View Menu
+          </Link>
         </div>
-      );
+      </div>
+
+      <ProductSection
+        bestsellers={best}
+        kunafa={kunafa}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
+      <Mid />
+      <Bottom />
+    </div>
+  );
 }

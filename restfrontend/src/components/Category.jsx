@@ -49,9 +49,9 @@ export default function Category() {
       {items.map((item)=>{
 const cartItem = cart.find(cItem => cItem.item.id === item.id);
 return (
-    <div key={item.id}>
-        <img  src={`http://127.0.0.1:8000${item.image}`}/>
-        <p>{item.name} - ₹{item.price}</p>
+    <div key={item.id} className='bestseller-card'>
+          <img className="bestseller-img" src={item.image_url} alt={item.name} />
+          <p>{item.name} - ₹{item.price}</p>
         {cartItem ? (
             <>
                 <button onClick={()=>incQuant(cartItem)}>+</button>

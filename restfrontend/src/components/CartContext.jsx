@@ -6,6 +6,9 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   // Fetch cart items
   useEffect(() => {
@@ -24,13 +27,16 @@ export const CartProvider = ({ children }) => {
   // Calculate total
   useEffect(() => {
     let totalPrice = 0;
+    let totalItemCount = 0;
+
     for (let i = 0; i < cart.length; i++) {
       totalPrice += cart[i].item.price * cart[i].quantity;
+      totalItemCount += cart[i].quantity; 
     }
     setTotal(totalPrice);
+    setTotalItems(totalItemCount);
+
   }, [cart]);
-
-
    //increase item quantity
    const incQuant = async (cartItem) => {
     try {
@@ -64,9 +70,23 @@ export const CartProvider = ({ children }) => {
       console.error("Error increasing quantity:", error);
     }
   };
+  const removeFromCart = async (cartItem) => {
+    try {
+      await axios.delete(`http://localhost:8000/cart/${cartItem.id}/`);
+      setCart(cart.filter(item => item.id !== cartItem.id));
+    } catch (error) {
+      console.error("Error removing item:", error);
+      alert("Could not remove item");
+    }
+  };
 
-
-
+  const triggerToast = (message) => {
+    setToastMessage(message);
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+  };
 
 
 
@@ -77,8 +97,15 @@ export const CartProvider = ({ children }) => {
 
 
   return (
-    <CartContext.Provider value={{ cart, setCart, total, incQuant, decQuant }}>
+    <CartContext.Provider value={{ cart, setCart, total, incQuant, decQuant, removeFromCart, totalItems , triggerToast}}>
       {children}
+      {showToast && (
+      <div className="toast-container">
+        <div className="toast-message">{toastMessage}</div>
+      </div>
+    )}
+
+
     </CartContext.Provider>
   );
 };
