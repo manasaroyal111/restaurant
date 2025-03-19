@@ -2,9 +2,18 @@ import React, { useContext } from "react";
 import { CartContext } from "./CartContext";
 import axios from "axios";
 import "../styles/ProductCard.css"; 
+import { useNavigate } from "react-router-dom";
+
 
 const ProductCard = ({ item, smallImage = false }) => {
   const { cart, setCart, incQuant, decQuant, triggerToast } = useContext(CartContext);
+
+
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/product/${item.id}`);
+  };
 
   const handleCart = async () => {
     try {
@@ -24,7 +33,7 @@ const ProductCard = ({ item, smallImage = false }) => {
   return (
     <div className="bestseller-card">
       <div className="image-container">
-        <img className={`bestseller-img ${smallImage ? "small-item-img" : ""}`} src={item.image_url} alt={item.name} />
+        <img className={`bestseller-img ${smallImage ? "small-item-img" : ""}`} src={item.image_url} alt={item.name} onClick={handleClick}/>
 
         <div className="add-to-cart-btn">
           {cartItem ? (

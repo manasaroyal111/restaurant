@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import CartPopup from './components/CartPopup';
 import { useState } from 'react';
 import Contact from './components/Contact';
+import ProductDetail from './components/ProductDetail';
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -27,7 +28,7 @@ function App() {
           <Route path='/:categoryName' element={<Category />} />
           <Route path='/items' element={<Items />} />
           <Route path='/contact' element={<Contact />} />
-
+          <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
         <Footer />
       </div>
