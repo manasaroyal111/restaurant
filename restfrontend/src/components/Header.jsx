@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
 import { CartContext } from "./CartContext";
-import '../styles/HeaderFooter.css'
+import '../styles/HeaderFooter.css';
+import useAgentId from "./useAgentId";
 
 export default function Header({ toggleCart }) {
   const [isOpen, setIsOpen] = useState(false);
   const { totalItems } = useContext(CartContext);
+  const { getUrlWithAgentId } = useAgentId();
 
   return (
     <nav
@@ -18,23 +20,23 @@ export default function Header({ toggleCart }) {
       }}
     >
       <div className="container-fluid d-flex align-items-center">
-        <a className="navbar-brand fw-bold d-none d-md-block" href="/">
+        <a className="navbar-brand fw-bold d-none d-md-block" href={getUrlWithAgentId("/")}>
           <h4 className="logo-header mb-0">The Golden Mithai Bites</h4>
         </a>
         <div className="collapse navbar-collapse justify-content-end d-none d-md-flex align-items-center">
           <ul className="navbar-nav align-items-center">
             <li className="nav-item">
-              <a className="nav-link" href="/items">
+              <a className="nav-link" href={getUrlWithAgentId("/items")}>
                 Shop All
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/about">
+              <a className="nav-link" href={getUrlWithAgentId("/about")}>
                 About
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/contact">
+              <a className="nav-link" href={getUrlWithAgentId("/contact")}>
                 Contact
               </a>
             </li>
@@ -65,7 +67,7 @@ export default function Header({ toggleCart }) {
             ></span>
           </button>
 
-          <a className="navbar-brand fw-bold text-center logo-mobile mb-0" href="/">
+          <a className="navbar-brand fw-bold text-center logo-mobile mb-0" href={getUrlWithAgentId("/")}>
             The Golden Mithai Bites
           </a>
 
@@ -80,16 +82,16 @@ export default function Header({ toggleCart }) {
             className="p-3 position-absolute w-100 shadow mobile-links"
             style={{ top: "100%", left: 0, backgroundColor: "white"}}
           >
-            <a className="d-block py-2 text-decoration-none" href="/items">
+            <a className="d-block py-2 text-decoration-none" href={getUrlWithAgentId("/items")}>
               Shop All
             </a>
-            <a className="d-block py-2 text-decoration-none" href="/about">
+            <a className="d-block py-2 text-decoration-none" href={getUrlWithAgentId("/about")}>
               About
             </a>
-            <a className="d-block py-2 text-decoration-none" href="/profile">
+            <a className="d-block py-2 text-decoration-none" href={getUrlWithAgentId("/profile")}>
               Profile
             </a>
-            <a className="d-block py-2 text-decoration-none" href="/contact">
+            <a className="d-block py-2 text-decoration-none" href={getUrlWithAgentId("/contact")}>
               Contact
             </a>
           </div>
@@ -98,3 +100,7 @@ export default function Header({ toggleCart }) {
     </nav>
   );
 }
+
+
+
+

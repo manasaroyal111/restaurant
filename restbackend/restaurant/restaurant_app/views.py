@@ -5,6 +5,50 @@ from .models import Category, Item, Cart
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 
+import os
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import default_storage
+import os
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def upload_image(request):
+    if request.method == "POST":
+        if "image" not in request.FILES:
+            return JsonResponse({"error": "No image provided"}, status=400)
+
+        image = request.FILES["image"]
+
+        # Correct path to React's public/images folder
+        react_public_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../restfrontend/public/images"))
+
+        # Make sure the folder exists
+        if not os.path.exists(react_public_folder):
+            os.makedirs(react_public_folder, exist_ok=True)
+
+        # Save the image
+        image_path = os.path.join(react_public_folder, image.name)
+
+        try:
+            with open(image_path, "wb+") as destination:
+                for chunk in image.chunks():
+                    destination.write(chunk)
+        except Exception as e:
+            return JsonResponse({"error": f"Failed to save image: {e}"}, status=500)
+
+        # Return the correct image URL
+        image_url = f"/images/{image.name}"
+        return JsonResponse({"image_url": image_url}, status=201)
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+
+
+
+
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
