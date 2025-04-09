@@ -13,6 +13,7 @@ import ProductDetail from './components/ProductDetail';
 import Checkout from './components/Checkout';
 import useAgentId from './components/useAgentId';
 import UploadImage from './components/UploadImage';
+import SearchResults from './components/SearchResults';
 
 
 function App() {
@@ -34,12 +35,13 @@ function App() {
         <CartPopup isOpen={isCartOpen} toggleCart={toggleCart} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/:categoryName' element={<Category />} />
+          <Route path="/collections/:categorySlug" element={<Category />} />
           <Route path='/items' element={<Items />} />
           <Route path='/contact' element={<Contact />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/upload" element={<UploadImage />} />
+          <Route path="/search" element={<SearchResults />} />
 
         </Routes>
         <Footer />

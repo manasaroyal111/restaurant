@@ -74,9 +74,9 @@ export default function Footer() {
 
   return (
     <div>
-      <NewsLetter />
-      <HorizontalScroller />
-      <footer className="py-5 footer" style={{ backgroundColor: "#c4a577", color: "#221100" }}>
+      {/* <NewsLetter />
+      <HorizontalScroller /> */}
+      <footer className="py-5 footer" style={{ backgroundColor: "#c4a577", color: "#221100", marginTop:'70px' }}>
         <div className="container">
           <div className="row">
             <div className="col-md-4 mb-3">

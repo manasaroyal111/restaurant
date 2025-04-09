@@ -12,6 +12,8 @@ from django.core.files.storage import default_storage
 import os
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
+
 
 @csrf_exempt
 def upload_image(request):
@@ -44,6 +46,31 @@ def upload_image(request):
 
     return JsonResponse({"error": "Invalid request"}, status=400)
 
+
+
+
+
+
+
+def search_items(request):
+    query = request.GET.get('q', '')
+    if query:
+        items = Item.objects.filter(name__icontains=query).distinct()
+    else:
+        items = Item.objects.none()
+
+    data = [
+        {
+            "id": item.id,
+            "name": item.name,
+            "price": item.price,
+            "image_url": item.image_url,
+            "bestseller": item.bestseller,
+            "category": [cat.name for cat in item.category.all()]
+        }
+        for item in items
+    ]
+    return JsonResponse(data, safe=False)
 
 
 
