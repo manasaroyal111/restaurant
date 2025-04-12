@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CategoryViewSet, ItemViewSet, ItemsByCategoryAPIView, CartViewSet, BestsellerItemsAPIView,upload_image, search_items
+from .views import CategoryViewSet, ItemViewSet, ItemsByCategoryAPIView, CartViewSet, BestsellerItemsAPIView,upload_image, search_items, create_order
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -14,5 +14,6 @@ urlpatterns = [
     path('bestsellers/', BestsellerItemsAPIView.as_view(), name='bestsellers_api'),
     path("api/upload-image/", upload_image, name="upload-image"),
     path('search/', search_items, name='search-items'),
+    path('create-order/', create_order, name='create_order'),
 
 ]

@@ -3,16 +3,18 @@ import { CartContext } from "./CartContext";
 import axios from "axios";
 import "../styles/ProductCard.css"; 
 import { useNavigate } from "react-router-dom";
+import useAgentId from "./useAgentId";
 
 
 const ProductCard = ({ item, smallImage = false }) => {
   const { cart, setCart, incQuant, decQuant, triggerToast } = useContext(CartContext);
+  const { getUrlWithAgentId } = useAgentId();
 
 
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/product/${item.id}`);
+    navigate(getUrlWithAgentId(`/product/${item.id}`));
   };
 
   const handleCart = async () => {

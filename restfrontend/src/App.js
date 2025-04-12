@@ -14,6 +14,7 @@ import Checkout from './components/Checkout';
 import useAgentId from './components/useAgentId';
 import UploadImage from './components/UploadImage';
 import SearchResults from './components/SearchResults';
+import PreCheckout from './components/PreCheckout';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/upload" element={<UploadImage />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/precheckout" element={<PreCheckout />} />
 
         </Routes>
         <Footer />

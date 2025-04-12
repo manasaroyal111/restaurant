@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from .serializers import CategorySerializer, ItemSerializer, CartSerializer
-from .models import Category, Item, Cart
+from .models import Category, Item, Cart, Order, OrderItem
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 
@@ -13,6 +13,7 @@ import os
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
+import json
 
 
 @csrf_exempt
@@ -71,6 +72,93 @@ def search_items(request):
         for item in items
     ]
     return JsonResponse(data, safe=False)
+
+
+@csrf_exempt
+def create_order(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        items = data.get('items', [])
+
+        total_price = 0
+        total_quantity = 0
+
+        order = Order.objects.create(total_price=0)  # Temp 0
+
+        for item_data in items:
+            item_id = item_data['id']
+            quantity = item_data['quantity']
+            item = Item.objects.get(id=item_id)
+            item_total = item.price * quantity
+
+            OrderItem.objects.create(
+                order=order,
+                item=item,
+                quantity=quantity,
+                price=item_total
+            )
+
+            total_price += item_total
+            total_quantity += quantity
+
+        order.total_price = total_price
+        order.save()
+
+        response = {
+            'order_id': order.id,
+            'total_price': float(total_price),
+            'total_quantity': total_quantity,
+            'items': [
+                {
+                    'name': oi.item.name,
+                    'quantity': oi.quantity,
+                    'price': float(oi.price),
+                } for oi in order.order_items.all()
+            ]
+        }
+
+        print("Order Summary:", response)  # Console log for debug
+
+        return JsonResponse(response)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

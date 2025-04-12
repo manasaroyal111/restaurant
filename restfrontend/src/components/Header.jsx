@@ -158,12 +158,13 @@ export default function Header({ toggleCart }) {
     <>
       {/* Header (scrolls normally) */}
       <div className="main-header-wrapper">
-        <nav className="navbar navbar-expand-md p-3 px-md-3 px-2 sticky-top"  style={{
+        <nav className="navbar navbar-expand-md p-3 px-2 sticky-top"  style={{
       position: "fixed",   
       width: "100%",
       top: 0,
       zIndex: 1000,
       backgroundColor: "white",
+      paddingLeft: '0'
      }}>
           <div className="container-fluid d-flex align-items-center justify-content-between">
             <a className="navbar-brand fw-bold d-none d-md-block" href={getUrlWithAgentId("/")}>
@@ -201,7 +202,7 @@ export default function Header({ toggleCart }) {
             </div>
             {/* Mobile Header */}
             <div className="d-md-none w-100 d-flex justify-content-between align-items-center">
-              <button className="navbar-toggler border-0" type="button" onClick={() => setIsOpen(true)}>
+              <button className="navbar-toggler border-0" type="button" onClick={() => setIsOpen(true)} style={{paddingLeft: 0}}>
                 <span className="navbar-toggler-icon"></span>
               </button>
 
