@@ -1,9 +1,168 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from .serializers import CategorySerializer, ItemSerializer, CartSerializer
-from .models import Category, Item, Cart
+from .models import Category, Item, Cart, Order, OrderItem
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
+
+import os
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import default_storage
+import os
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
+import json
+
+
+@csrf_exempt
+def upload_image(request):
+    if request.method == "POST":
+        if "image" not in request.FILES:
+            return JsonResponse({"error": "No image provided"}, status=400)
+
+        image = request.FILES["image"]
+
+        # Correct path to React's public/images folder
+        react_public_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../restfrontend/public/images"))
+
+        # Make sure the folder exists
+        if not os.path.exists(react_public_folder):
+            os.makedirs(react_public_folder, exist_ok=True)
+
+        # Save the image
+        image_path = os.path.join(react_public_folder, image.name)
+
+        try:
+            with open(image_path, "wb+") as destination:
+                for chunk in image.chunks():
+                    destination.write(chunk)
+        except Exception as e:
+            return JsonResponse({"error": f"Failed to save image: {e}"}, status=500)
+
+        # Return the correct image URL
+        image_url = f"/images/{image.name}"
+        return JsonResponse({"image_url": image_url}, status=201)
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+
+
+
+
+
+def search_items(request):
+    query = request.GET.get('q', '')
+    if query:
+        items = Item.objects.filter(name__icontains=query).distinct()
+    else:
+        items = Item.objects.none()
+
+    data = [
+        {
+            "id": item.id,
+            "name": item.name,
+            "price": item.price,
+            "image_url": item.image_url,
+            "bestseller": item.bestseller,
+            "category": [cat.name for cat in item.category.all()]
+        }
+        for item in items
+    ]
+    return JsonResponse(data, safe=False)
+
+
+@csrf_exempt
+def create_order(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        items = data.get('items', [])
+
+        total_price = 0
+        total_quantity = 0
+
+        order = Order.objects.create(total_price=0)  # Temp 0
+
+        for item_data in items:
+            item_id = item_data['id']
+            quantity = item_data['quantity']
+            item = Item.objects.get(id=item_id)
+            item_total = item.price * quantity
+
+            OrderItem.objects.create(
+                order=order,
+                item=item,
+                quantity=quantity,
+                price=item_total
+            )
+
+            total_price += item_total
+            total_quantity += quantity
+
+        order.total_price = total_price
+        order.save()
+
+        response = {
+            'order_id': order.id,
+            'total_price': float(total_price),
+            'total_quantity': total_quantity,
+            'items': [
+                {
+                    'name': oi.item.name,
+                    'quantity': oi.quantity,
+                    'price': float(oi.price),
+                } for oi in order.order_items.all()
+            ]
+        }
+
+        print("Order Summary:", response)  # Console log for debug
+
+        return JsonResponse(response)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()

@@ -132,3 +132,25 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# settings.py
+PHONEPE_MERCHANT_ID = 'PGTESTPAYUAT' # Replace with your actual Merchant ID
+PHONEPE_MERCHANT_KEY = '099eb0cd-02cf-4e2a-8aca-3e6c6aff0399'  # Replace with your actual Merchant Key
+PHONEPE_UAT_URL = "https://api-preprod.phonepe.com/apis/pg-sandbox"
+PHONEPE_CALLBACK_URL = 'http://localhost:8000/payment/callback/'  # Callback URL (your backend to handle payment response)
+SALT_INDEX = 1;
+

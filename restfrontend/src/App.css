@@ -2,8 +2,7 @@
   text-align: center;
   background-color: #f4f2f1;
   font-family: 'Poppins', sans-serif;
-
-
+  margin-top: 36px;
 }
 html, body{
   margin: 0;
@@ -447,4 +446,70 @@ font-size: 0.6rem;
   .contact-details{
     gap: 40px;
   }
+}
+
+
+
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Content (Default for larger screens) */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 50%;
+  max-width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Fullscreen Modal for Mobile */
+@media (max-width: 768px) {
+  .modal-content {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px;
+  }
+
+  .modal-actions {
+      display: flex;
+      justify-content: space-between;
+  }
+}.carousel-img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 16 / 6;
+  height: auto; /* Important: Let height be controlled by aspect-ratio */
+}
+
+@media (max-width: 768px) {
+  .carousel-img {
+    aspect-ratio: 16 / 9; /* Taller for mobile */
+  }
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

@@ -58,7 +58,6 @@ export default function Bottom() {
           <img src={`${process.env.PUBLIC_URL}/images/TBB_3.webp`} alt="Partner with us" className="img-fluid h-100" />
         </div>
       </div>
-
     </div>
 
   );

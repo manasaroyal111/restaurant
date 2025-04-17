@@ -3,16 +3,18 @@ import { CartContext } from "./CartContext";
 import axios from "axios";
 import "../styles/ProductCard.css"; 
 import { useNavigate } from "react-router-dom";
+import useAgentId from "./useAgentId";
 
 
 const ProductCard = ({ item, smallImage = false }) => {
   const { cart, setCart, incQuant, decQuant, triggerToast } = useContext(CartContext);
+  const { getUrlWithAgentId } = useAgentId();
 
 
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/product/${item.id}`);
+    navigate(getUrlWithAgentId(`/product/${item.id}`));
   };
 
   const handleCart = async () => {
@@ -40,7 +42,7 @@ const ProductCard = ({ item, smallImage = false }) => {
             <div className="d-flex align-items-center justify-content-center">
               <div
                 className="cart-control ms-2"
-                style={{ color: "black", padding: "5px 10px", cursor: "pointer" }}
+                style={{ color: "white", padding: "5px 10px", cursor: "pointer" }}
                 onClick={() => decQuant(cartItem)}
               >
                 -
@@ -48,7 +50,7 @@ const ProductCard = ({ item, smallImage = false }) => {
               <span className="fw-bold">{cartItem.quantity}</span>
               <div
                 className="cart-control me-2"
-                style={{ color: "black", padding: "5px 10px", cursor: "pointer" }}
+                style={{ color: "white", padding: "5px 10px", cursor: "pointer" }}
                 onClick={() => incQuant(cartItem)}
               >
                 +
@@ -69,3 +71,12 @@ const ProductCard = ({ item, smallImage = false }) => {
 };
 
 export default ProductCard;
+
+
+
+
+
+
+
+
+
